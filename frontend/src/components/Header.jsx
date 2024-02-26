@@ -13,15 +13,16 @@ import Backdrop from "./Backdrop";
 import { createPortal } from "react-dom";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [login, setLogin] = useState(false);
   const [signin, setSignin] = useState(false);
-  const { user,setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
-  async function logoutHandler(){
-    const res=await axios.post('/logout');
-    localStorage.removeItem('user');
+  async function logoutHandler() {
+    const res = await axios.post("/logout");
+    localStorage.removeItem("user");
     setUser(null);
   }
 
@@ -108,9 +109,12 @@ const Header = () => {
           {user && (
             <>
               <DropdownMenuLabel>{user.fullName}</DropdownMenuLabel>
-              <DropdownMenuItem> <div onClick={logoutHandler}>Logout</div></DropdownMenuItem>
-              <DropdownMenuItem>Account</DropdownMenuItem>
-
+              <div onClick={logoutHandler}>
+                <DropdownMenuItem> Logout</DropdownMenuItem>
+              </div>
+              <Link to={"/account"}>
+                <DropdownMenuItem>Account</DropdownMenuItem>
+              </Link>
             </>
           )}
           {!user && (
@@ -130,8 +134,16 @@ const Header = () => {
         </DropdownMenuContent>
       </DropdownMenu>
       {(login || signin) && createPortal(<Backdrop />, document.body)}
-      {signin && createPortal(<Signin setSignin={setSignin} setLogin={setLogin}/>, document.body)}
-      {login && createPortal(<Login setLogin={setLogin} setSignin={setSignin}/>, document.body)}
+      {signin &&
+        createPortal(
+          <Signin setSignin={setSignin} setLogin={setLogin} />,
+          document.body
+        )}
+      {login &&
+        createPortal(
+          <Login setLogin={setLogin} setSignin={setSignin} />,
+          document.body
+        )}
     </div>
   );
 };

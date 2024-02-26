@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { UserContext } from "./context/UserContext";
 import { Route, Routes } from "react-router-dom";
 import AccountPage from "./Pages/AccountPage";
+import IndexPage from "./Pages/IndexPage";
 
 function App() {
   axios.defaults.baseURL = "http://localhost:4000";
@@ -17,6 +18,7 @@ function App() {
     <>
       <Header/>
       <Routes>
+        <Route path='/' element={<IndexPage/>}/>
         <Route path='/account' element={<AccountPage/>}/>
         <Route path='/account/:subpage' element={<AccountPage/>}/>
         <Route path='/account/:subpage/:action' element={<AccountPage/>}/>

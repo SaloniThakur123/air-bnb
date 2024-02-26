@@ -4,6 +4,8 @@ const Places = require("../models/Places");
 
 const jwt = require("jsonwebtoken");
 
+
+// add a place
 router.post("/places", async function (req, res) {
   // console.log('njnjnj');
   const {
@@ -16,6 +18,7 @@ router.post("/places", async function (req, res) {
     checkIn,
     checkOut,
     maxGuests,
+    price,
   } = req.body;
   const { token } = req.cookies;
   const payload = jwt.verify(token, process.env.JWT_SECRET);
@@ -32,11 +35,13 @@ router.post("/places", async function (req, res) {
     checkIn,
     checkOut,
     maxGuests,
-  });
+    price
+    });
 
   res.send(place);
 });
 
+// get a place of a specific user
 router.get("/places", async function (req, res) {
   const { token } = req.cookies;
   const payload = jwt.verify(token, process.env.JWT_SECRET);
@@ -54,6 +59,7 @@ router.get("/places/:placeId", async function (req, res) {
   res.send(place);
 });
 
+// update a place
 router.put("/places/:placeId", async function (req, res) {
   const { token } = req.cookies;
   const payload = jwt.verify(token, process.env.JWT_SECRET);
@@ -73,6 +79,7 @@ router.put("/places/:placeId", async function (req, res) {
     checkIn,
     checkOut,
     maxGuests,
+    price
   } = req.body;
   const userId = payload.user._id;
   if (place.owner.equals(userId)) {
@@ -88,11 +95,20 @@ router.put("/places/:placeId", async function (req, res) {
         checkIn,
         checkOut,
         maxGuests,
+        price
       }
     );
     return res.send("updated");
   }
   res.send("not authorized");
 });
+
+// get all places 
+router.get('/allPlaces',async function(req, res){
+  const place=await Places.find({});
+  res.send(place);
+
+   
+})
 
 module.exports = router;

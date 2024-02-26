@@ -15,6 +15,8 @@ const PlacesForm = () => {
   const [checkIn, setcheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
+  const [price, setPrice] = useState(100);
+
   const [redirect, setRedirect] = useState("");
 
   if (action != "new") {
@@ -30,6 +32,7 @@ const PlacesForm = () => {
         setcheckIn(data.checkIn);
         setCheckOut(data.checkOut);
         setMaxGuests(data.maxGuests);
+        setPrice(data.price);
       }
 
       getPlace();
@@ -73,6 +76,7 @@ const PlacesForm = () => {
       checkIn,
       checkOut,
       maxGuests,
+      price
     };
 
     if (action === "new") {
@@ -207,6 +211,15 @@ const PlacesForm = () => {
               onChange={(e) => setMaxGuests(e.target.value)}
             />
           </div>
+        </div>
+        <div>
+          <h3>Price per night</h3>
+          <input
+            type="number"
+            className="border rounded-xl px-3 py-1 mt-2"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
         </div>
 
         <button

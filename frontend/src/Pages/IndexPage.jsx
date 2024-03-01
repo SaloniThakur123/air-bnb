@@ -17,7 +17,7 @@ const IndexPage = () => {
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4 mx-8 gap-4">
       {places.length > 0 &&
         places.map((place) => (
-          <Link key={place._id} className="rounded-xl cursor-pointer p-4">
+          <Link to={'/places/'+ place._id} key={place._id} className="rounded-xl cursor-pointer p-4">
             <div className="flex mb-2 ">
               <img
                 className=" aspect-square object-cover rounded-xl"

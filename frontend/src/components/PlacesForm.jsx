@@ -91,6 +91,18 @@ const PlacesForm = () => {
     return <Navigate to={redirect} />;
   }
 
+  function deleteImage(e,link){
+    e.preventDefault();
+    setAddedPhotos([...addedPhotos.filter((image)=>image!=link)]);
+  }
+  
+  function setAsMainImage(e,link){
+    e.preventDefault();
+    const notSelected=addedPhotos.filter((image)=>image!=link);
+    setAddedPhotos([link,...notSelected]);
+  }
+
+
   return (
     <>
       <form
@@ -139,13 +151,17 @@ const PlacesForm = () => {
         <div className="mt-2 grid gap-2 grid-cols-3">
           {addedPhotos.length > 0 &&
             addedPhotos.map((link) => (
-              <div key={link} className="h-32 flex justify-center">
+              <div key={link} className="h-32 flex justify-center relative">
                 <img
                   src={"http://localhost:4000" + link}
                   className="rounded-2xl w-full object-cover "
                 />
-                <button>
+                <button onClick={(e)=>deleteImage(e,link)} className="absolute bottom-1 right-1 bg-black py-1 px-2 rounded-xl text-gray-100 bg-opacity-50">
                   <i className="fa-solid fa-trash"></i>
+                </button>
+                <button onClick={(e)=>setAsMainImage(e,link)} className="absolute bottom-1 left-1 bg-black py-1 px-2 rounded-xl text-gray-100 bg-opacity-50">
+                  {link===addedPhotos[0] &&  <i className="fa-solid fa-star"></i>}
+                  {link!=addedPhotos[0] &&  <i className="fa-regular fa-star"></i>}
                 </button>
               </div>
             ))}

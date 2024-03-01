@@ -107,8 +107,13 @@ router.put("/places/:placeId", async function (req, res) {
 router.get('/allPlaces',async function(req, res){
   const place=await Places.find({});
   res.send(place);
+})
 
-   
+// get single place 
+router.get('/place/:placeId',async function(req, res){
+  const {placeId}=req.params;
+  const place=await Places.findOne({_id: placeId});
+  res.send(place);
 })
 
 module.exports = router;

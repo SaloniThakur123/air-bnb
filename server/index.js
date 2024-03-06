@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const userRoute = require("./routes/user");
 const imageRoute = require("./routes/uploadImages");
 const placeRoute = require("./routes/places");
+const bookingRoute = require('./routes/booking');
 const cookieParser = require("cookie-parser");
 const app = express();
 const port = process.env.PORT || 4000;
@@ -22,7 +23,7 @@ app.use(cookieParser());
 app.use("/", userRoute);
 app.use("/", imageRoute);
 app.use("/", placeRoute);
-
+app.use("/", bookingRoute);
 mongoose
   .connect("mongodb://127.0.0.1:27017/airbnb")
   .then(() => console.log("connected"));

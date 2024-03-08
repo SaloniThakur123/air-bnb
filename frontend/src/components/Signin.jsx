@@ -15,10 +15,6 @@ const Signin = ({setSignin,setLogin}) => {
     const res=await axios.post('/register',{fullName:name ,email,password});
     const data = res.data.user;
     setUser(data);
-    localStorage('user',JSON.stringify(data));
-    setName('');
-    setEmail('');
-    setPassword('');
     setSignin(false);
     // console.log(data);
   }

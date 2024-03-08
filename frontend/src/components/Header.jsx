@@ -22,7 +22,6 @@ const Header = () => {
 
   async function logoutHandler() {
     const res = await axios.post("/logout");
-    localStorage.removeItem("user");
     setUser(null);
   }
 

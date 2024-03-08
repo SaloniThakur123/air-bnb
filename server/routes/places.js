@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Places = require("../models/Places");
+const { StatusCodes} = require ('http-status-codes');
 
 const jwt = require("jsonwebtoken");
 
@@ -21,8 +22,9 @@ router.post("/places", async function (req, res) {
     price,
   } = req.body;
   const { token } = req.cookies;
+  if(!token) return res.status(StatusCodes.UNAUTHORIZED).send('Not Authorized');
   const payload = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(payload);
+  // console.log(payload);
   // res.send("ni");
   const place = await Places.create({
     owner: payload.user._id,
@@ -38,16 +40,18 @@ router.post("/places", async function (req, res) {
     price
     });
 
-  res.send(place);
+  res.status(StatusCodes.CREATED).send(place);
 });
 
 // get a place of a specific user
 router.get("/places", async function (req, res) {
   const { token } = req.cookies;
+  if (!token)
+    return res.status(StatusCodes.UNAUTHORIZED).send("Not Authorized");
   const payload = jwt.verify(token, process.env.JWT_SECRET);
 
   const place = await Places.find({ owner: payload.user._id });
-  res.send(place);
+  res.status(StatusCodes.OK).send(place);
 });
 
 router.get("/places/:placeId", async function (req, res) {
@@ -56,19 +60,21 @@ router.get("/places/:placeId", async function (req, res) {
   const place = await Places.findOne({
     _id: placeId,
   });
-  res.send(place);
+  res.status(StatusCodes.OK).send(place);
 });
 
 // update a place
 router.put("/places/:placeId", async function (req, res) {
   const { token } = req.cookies;
+  if (!token)
+    return res.status(StatusCodes.UNAUTHORIZED).send("Not Authorized");
   const payload = jwt.verify(token, process.env.JWT_SECRET);
 
   const { placeId } = req.params;
   const place = await Places.findOne({
     _id: placeId,
   });
-  console.log(placeId);
+  // console.log(placeId);
   const {
     title,
     address,
@@ -98,22 +104,22 @@ router.put("/places/:placeId", async function (req, res) {
         price
       }
     );
-    return res.send("updated");
+    return res.status(StatusCodes.CREATED).send("updated");
   }
-  res.send("not authorized");
+  res.status(StatusCodes.UNAUTHORIZED).send("not authorized");
 });
 
 // get all places 
 router.get('/allPlaces',async function(req, res){
   const place=await Places.find({});
-  res.send(place);
+  res.status(StatusCodes.OK).send(place);
 })
 
 // get single place 
 router.get('/place/:placeId',async function(req, res){
   const {placeId}=req.params;
   const place=await Places.findOne({_id: placeId});
-  res.send(place);
+  res.status(StatusCodes.OK).send(place);
 })
 
 module.exports = router;

@@ -11,7 +11,7 @@ const BookingForm = ({ place }) => {
 
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [redirect, setRedirect] = useState('');
+  const [redirect, setRedirect] = useState(''); 
   
 
   const { user } = useContext(UserContext);

@@ -32,7 +32,7 @@ function Bookings() {
                 <div className="flex h-32 w-32 ">
                   <img
                     className="aspect-square rounded-xl "
-                    src={"http://localhost:4000" + booking.placeId.photos[0]}
+                    src={booking.placeId.photos[0]}
                   ></img>
                 </div>
                 <div className="flex flex-col gap-2">

@@ -43,6 +43,7 @@ const PlacesForm = () => {
     e.preventDefault();
     const { data } = await axios.post("/uploadByLink", { link: photoLink });
     setAddedPhotos([...addedPhotos, data]);
+    setPhotoLink("");
   }
 
   async function uploadPhoto(e) {
@@ -153,7 +154,7 @@ const PlacesForm = () => {
             addedPhotos.map((link) => (
               <div key={link} className="h-32 flex justify-center relative">
                 <img
-                  src={"http://localhost:4000" + link}
+                  src={link}
                   className="rounded-2xl w-full object-cover "
                 />
                 <button onClick={(e)=>deleteImage(e,link)} className="absolute bottom-1 right-1 bg-black py-1 px-2 rounded-xl text-gray-100 bg-opacity-50">

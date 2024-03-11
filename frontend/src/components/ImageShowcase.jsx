@@ -8,7 +8,7 @@ const ImageShowcase = ({place,setShowAllImage}) => {
           {place.photos?.[0] && (
             <img
               className="object-cover max-h-96"
-              src={"http://localhost:4000" + place.photos[0]}
+              src={place.photos[0]}
             ></img>
           )}
         </div>
@@ -17,7 +17,7 @@ const ImageShowcase = ({place,setShowAllImage}) => {
             {place.photos?.[1] && (
               <img
                 className="object-cover max-h-48"
-                src={"http://localhost:4000" + place.photos[1]}
+                src={place.photos[1]}
               ></img>
             )}
           </div>
@@ -25,7 +25,7 @@ const ImageShowcase = ({place,setShowAllImage}) => {
             {place.photos?.[2] && (
               <img
                 className="object-cover max-h-48"
-                src={"http://localhost:4000" + place.photos[2]}
+                src={place.photos[2]}
               ></img>
             )}
           </div>

@@ -27,7 +27,7 @@ router.post("/places", async function (req, res) {
   // console.log(payload);
   // res.send("ni");
   const place = await Places.create({
-    owner: payload.user._id,
+    owner: payload.userId,
     title,
     address,
     photos,
@@ -49,8 +49,8 @@ router.get("/places", async function (req, res) {
   if (!token)
     return res.status(StatusCodes.UNAUTHORIZED).send("Not Authorized");
   const payload = jwt.verify(token, process.env.JWT_SECRET);
-
-  const place = await Places.find({ owner: payload.user._id });
+// console.log(payload);
+  const place = await Places.find({ owner: payload.userId });
   res.status(StatusCodes.OK).send(place);
 });
 
@@ -87,7 +87,7 @@ router.put("/places/:placeId", async function (req, res) {
     maxGuests,
     price
   } = req.body;
-  const userId = payload.user._id;
+  const userId = payload.userId;
   if (place.owner.equals(userId)) {
     await Places.findOneAndUpdate(
       { _id: placeId },

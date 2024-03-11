@@ -38,7 +38,7 @@ const PlacePage = () => {
               <div key={photo} className="flex justify-center">
                 <img
                   className="lg:max-w-[50%] "
-                  src={"http://localhost:4000" + photo}
+                  src={photo}
                 ></img>
               </div>
             ))}

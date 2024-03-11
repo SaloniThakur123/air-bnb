@@ -33,7 +33,7 @@ const Places = () => {
           {places.length>0 && places.map(place=>(
             <Link to={'/account/places/'+place._id}  key={place._id} className="flex p-1 rounded-xl mx-12 gap-2">
               <div className="flex w-32 h-32 grow shrink-0">
-                <img className="object-cover rounded-lg " src={"http://localhost:4000"+place.photos[0]}></img>
+                <img className="object-cover rounded-lg " src={place.photos[0]}></img>
               </div>
               <div className="grow-0 shrink">
                 <h1 className="text-xl">{place.title}</h1>

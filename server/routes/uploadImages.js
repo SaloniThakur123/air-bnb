@@ -20,7 +20,7 @@ router.post("/uploadByLink", async function (req, res) {
     return res.status(StatusCodes.BAD_REQUEST).send("fill all the fields");
   }
   const result= await cloudinary.uploader.upload(link);
-  console.log(result);
+  // console.log(result);
   res.status(StatusCodes.OK).send(result.url);
 });
 

@@ -10,7 +10,7 @@ import IndexPage from "./Pages/IndexPage";
 import PlacePage from "./Pages/PlacePage";
 
 function App() {
-  axios.defaults.baseURL = "http://localhost:4000";
+  axios.defaults.baseURL = import.meta.env.VITE_BACKEND;
   axios.defaults.withCredentials=true;
   const {user}=useContext(UserContext);
 

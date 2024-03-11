@@ -17,7 +17,7 @@ router.post('/booking',async function(req,res){
       guests,
       name,
       mobile,
-      user: payload.user._id,
+      user: payload.userId,
       placeId,
       price,
     });
@@ -29,7 +29,7 @@ router.get('/booking',async function(req,res){
   if (!token)
     return res.status(StatusCodes.UNAUTHORIZED).send("Not Authorized");
   const payload = jwt.verify(token, process.env.JWT_SECRET);
-  const booking=await Booking.find({user:payload.user._id}).populate('placeId');
+  const booking=await Booking.find({user:payload.userId}).populate('placeId');
   res.status(StatusCodes.OK).send(booking);
 
 

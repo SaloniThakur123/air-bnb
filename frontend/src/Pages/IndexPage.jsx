@@ -21,7 +21,7 @@ const IndexPage = () => {
             <div className="flex mb-2 ">
               <img
                 className=" aspect-square object-cover rounded-xl"
-                src={"http://localhost:4000" + place.photos[0]}
+                src={place.photos[0]}
               />
             </div>
             <div className="font-bold">{place.address}</div>

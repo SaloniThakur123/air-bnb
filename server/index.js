@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND,
   })
 );
 app.use("/uploads", express.static("./uploads"));
@@ -26,6 +26,6 @@ app.use("/", imageRoute);
 app.use("/", placeRoute);
 app.use("/", bookingRoute);
 mongoose
-  .connect("mongodb://127.0.0.1:27017/airbnb")
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("connected"));
 app.listen(port, () => console.log("working"));
